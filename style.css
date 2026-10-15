@@ -1,0 +1,652 @@
+:root {
+  --bg-page: #0b0d13;
+  --bg-card: #12151e;
+  --bg-card-hover: #161a25;
+  --border-dim: #1c2230;
+  --neon-green: #00ff66;
+  --neon-green-rgb: 0, 255, 102;
+  --neon-red: #ff334b;
+  --neon-red-rgb: 255, 51, 75;
+  --neon-yellow: #f5a623;
+  --text-pure: #ffffff;
+  --text-body: #cfd6e4;
+  --text-muted: #647087;
+  --font-mono: 'Share Tech Mono', monospace, 'Chakra Petch', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-layout {
+  width: 100%;
+  max-width: 1120px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 5.5rem;
+}
+
+/* ==========================================================================
+   1. Header Bar
+   ========================================================================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem 0.8rem 1.5rem;
+}
+
+/* סמל המגן: רקע ירוק קבוע תמיד, ובמעבר עכבר הילה זוהרת חזקה */
+.nav-shield-btn {
+  cursor: pointer;
+  outline: none;
+  border-radius: 50%;
+  display: inline-flex;
+}
+
+.shield-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--neon-green);
+  border: 1.5px solid var(--neon-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(var(--neon-green-rgb), 0.5);
+  transition: all 0.25s ease-in-out;
+}
+
+.shield-svg {
+  width: 16px;
+  height: 16px;
+  fill: #0b0d13;
+  transition: all 0.25s ease;
+}
+
+.nav-shield-btn:hover .shield-circle,
+.nav-shield-btn:focus .shield-circle {
+  box-shadow: 0 0 18px rgba(var(--neon-green-rgb), 1), 0 0 35px rgba(var(--neon-green-rgb), 0.7);
+  filter: brightness(1.2);
+  transform: scale(1.08);
+}
+
+.nav-title {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.25rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 8px rgba(var(--neon-green-rgb), 0.4);
+}
+
+.nav-status-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--neon-green);
+  border-radius: 9999px;
+  background-color: rgba(0, 255, 102, 0.03);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.status-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: pulse-beacon 1.6s infinite ease-in-out;
+}
+
+@keyframes pulse-beacon {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px var(--neon-green); }
+  50% { opacity: 0.3; transform: scale(0.7); box-shadow: 0 0 2px var(--neon-green); }
+}
+
+.status-text {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--neon-green);
+  letter-spacing: 0.08rem;
+  font-weight: 700;
+}
+
+.nav-status-btn:hover {
+  background-color: rgba(0, 255, 102, 0.12);
+  box-shadow: 0 0 14px rgba(var(--neon-green-rgb), 0.5);
+}
+
+/* ==========================================================================
+   Main Content Layout
+   ========================================================================== */
+.main-viewport {
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ==========================================================================
+   2. Scanner Box (Radar + Metrics)
+   ========================================================================== */
+.scanner-panel {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-dim);
+  border-radius: 16px;
+  padding: 2.2rem 3.5rem;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: center;
+  gap: 3.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.scanner-panel:hover,
+.scanner-panel:focus-within {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 22px rgba(var(--neon-green-rgb), 0.45), inset 0 0 12px rgba(var(--neon-green-rgb), 0.05);
+}
+
+.radar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radar-display {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  border: 2px solid var(--neon-green);
+  background: radial-gradient(circle, rgba(0, 45, 20, 0.4) 0%, rgba(5, 14, 9, 0.98) 100%);
+  overflow: hidden;
+  box-shadow: 0 0 16px rgba(var(--neon-green-rgb), 0.25);
+}
+
+.radar-grid-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(var(--neon-green-rgb), 0.25);
+}
+.radar-grid-v {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: rgba(var(--neon-green-rgb), 0.25);
+}
+
+.radar-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(var(--neon-green-rgb), 0.22);
+}
+.circle-lg { width: 72%; height: 72%; }
+.circle-md { width: 44%; height: 44%; }
+.circle-sm { width: 16%; height: 16%; }
+
+.radar-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 105px;
+  height: 105px;
+  transform-origin: 0% 0%;
+  background: conic-gradient(from 0deg, rgba(var(--neon-green-rgb), 0.6) 0deg, transparent 55deg);
+  animation: radar-sweep-rotate 3.2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes radar-sweep-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.blip {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: blip-radiate 3.2s infinite ease-in-out;
+}
+.target-alpha   { top: 35%; left: 32%; animation-delay: 0.3s; }
+.target-bravo   { top: 66%; left: 68%; animation-delay: 1.4s; }
+.target-charlie { top: 25%; left: 62%; animation-delay: 2.2s; }
+
+@keyframes blip-radiate {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  45%, 55% { opacity: 1; transform: scale(1.35); box-shadow: 0 0 12px var(--neon-green); }
+}
+
+.scanner-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.data-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.counter-number {
+  font-family: var(--font-mono);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--neon-green);
+  text-shadow: 0 0 12px rgba(var(--neon-green-rgb), 0.35);
+}
+
+.counter-caption {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.12rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   3. Action Buttons Row (מעבר עכבר: עולה קצת, הופך לגלולה, הארה ירוקה בפנים)
+   ========================================================================== */
+.actions-strip {
+  display: flex;
+  gap: 0.85rem;
+}
+
+.tactical-btn {
+  background-color: #121622;
+  color: #cfd6e4;
+  border: 1px solid #1e2435;
+  border-radius: 8px;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.85rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.tactical-btn .btn-symbol {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: #8b9bb4;
+  line-height: 1;
+}
+
+.tactical-btn .btn-symbol-svg {
+  width: 14px;
+  height: 14px;
+  fill: #8b9bb4;
+  transform: rotate(45deg);
+}
+
+.tactical-btn:hover,
+.tactical-btn:focus {
+  background-color: rgba(0, 255, 102, 0.08);
+  border-color: var(--neon-green);
+  border-radius: 9999px;
+  box-shadow: 0 0 14px rgba(var(--neon-green-rgb), 0.45), inset 0 0 12px rgba(var(--neon-green-rgb), 0.18);
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.tactical-btn:hover .btn-symbol,
+.tactical-btn:hover .btn-symbol-svg {
+  color: var(--neon-green);
+  fill: var(--neon-green);
+}
+
+/* ==========================================================================
+   4. Intelligence Cards Row (מעבר עכבר: עולה קצת, נוטה באלכסון ימינה, מסגרת ירוקה)
+   ========================================================================== */
+.intel-cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+}
+
+.intel-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: 8px;
+  padding: 1.1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  outline: none;
+  position: relative;
+}
+
+.border-accent-green {
+  border-left: 3.5px solid var(--neon-green);
+}
+.border-accent-yellow {
+  border-left: 3.5px solid var(--neon-yellow);
+}
+
+.intel-card:hover,
+.intel-card:focus {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 18px rgba(var(--neon-green-rgb), 0.5);
+  transform: translateY(-3px) rotate(1deg);
+  background-color: var(--bg-card-hover);
+}
+
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.04rem;
+}
+
+.badge-critical {
+  color: var(--neon-red);
+  background-color: rgba(var(--neon-red-rgb), 0.12);
+  border: 1px solid rgba(var(--neon-red-rgb), 0.4);
+}
+.badge-high {
+  color: var(--neon-yellow);
+  background-color: rgba(245, 166, 35, 0.12);
+  border: 1px solid rgba(245, 166, 35, 0.4);
+}
+.badge-medium {
+  color: var(--neon-green);
+  background-color: rgba(var(--neon-green-rgb), 0.12);
+  border: 1px solid rgba(var(--neon-green-rgb), 0.4);
+}
+
+.card-status-text {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.card-heading {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-pure);
+  margin-bottom: 1rem;
+}
+
+.meter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.meter-track {
+  flex: 1;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+}
+.fill-green {
+  background-color: var(--neon-green);
+  box-shadow: 0 0 6px var(--neon-green);
+}
+
+.meter-val {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   5. Threat Detected Strip (מעבר עכבר: מתרחב מעט, נשאר כיתוב אדום זוהר)
+   ========================================================================== */
+.threat-alert-panel {
+  border: 1px solid rgba(255, 51, 75, 0.45);
+  background-color: rgba(255, 51, 75, 0.04);
+  border-radius: 8px;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.threat-headline {
+  color: var(--neon-red);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.25rem;
+  font-size: 0.88rem;
+  text-shadow: 0 0 6px rgba(var(--neon-red-rgb), 0.4);
+  transition: all 0.25s ease;
+}
+
+.threat-beacon {
+  position: absolute;
+  left: 1.25rem;
+  width: 6px;
+  height: 6px;
+  background-color: var(--neon-red);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--neon-red);
+  animation: beacon-blink 1.2s infinite alternate ease-in-out;
+  transition: all 0.25s ease;
+}
+
+@keyframes beacon-blink {
+  0% { opacity: 0.25; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+.threat-alert-panel:hover,
+.threat-alert-panel:focus {
+  background-color: rgba(255, 40, 65, 0.24);
+  border-color: #ff334b;
+  box-shadow: 0 0 16px rgba(var(--neon-red-rgb), 0.5), inset 0 0 12px rgba(var(--neon-red-rgb), 0.15);
+  transform: scale(1.02);
+}
+
+.threat-alert-panel:hover .threat-headline {
+  color: #ff334b;
+  text-shadow: 0 0 12px rgba(var(--neon-red-rgb), 0.85);
+}
+
+.threat-alert-panel:hover .threat-beacon {
+  background-color: #ff334b;
+  box-shadow: 0 0 10px #ff334b, 0 0 18px #ff334b;
+  transform: scale(1.3);
+}
+
+/* ==========================================================================
+   6. Bottom Navigation Bar
+   ========================================================================== */
+.bottom-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background-color: #07090e;
+  border-top: 1px solid #161b26;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  z-index: 999;
+}
+
+.dock-items {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  height: 100%;
+}
+
+.dock-link {
+  color: #657084;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  position: relative;
+  padding: 0 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.dock-icon-svg {
+  width: 18px;
+  height: 18px;
+  transition: all 0.2s ease;
+}
+
+.dock-label {
+  font-size: 0.68rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+}
+
+.dock-link.active,
+.dock-link:hover {
+  color: var(--neon-green);
+}
+
+.dock-link.active .dock-icon-svg,
+.dock-link:hover .dock-icon-svg {
+  filter: drop-shadow(0 0 6px var(--neon-green));
+}
+
+.dock-link.active .dock-label,
+.dock-link:hover .dock-label {
+  text-shadow: 0 0 8px rgba(var(--neon-green-rgb), 0.5);
+}
+
+.dock-link.active::after,
+.dock-link:hover::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -4px;
+  right: -4px;
+  height: 2px;
+  background-color: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+  border-radius: 1px;
+}
+
+.dock-help {
+  display: flex;
+  align-items: center;
+}
+
+.help-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #121620;
+  border: 1px solid #1f2738;
+  color: #657084;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.help-btn:hover {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 10px rgba(var(--neon-green-rgb), 0.4);
+}
+
+/* ==========================================================================
+   Responsive (Mobile Bonus)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .scanner-panel {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  .radar-container {
+    justify-content: center;
+  }
+  .scanner-data {
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+  }
+  .actions-strip {
+    flex-direction: column;
+  }
+  .tactical-btn {
+    justify-content: center;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+  .intel-cards-container {
+    grid-template-columns: 1fr;
+  }
+  .counter-number {
+    font-size: 3.2rem;
+  }
+  .card-heading {
+    font-size: 1rem;
+  }
+}
