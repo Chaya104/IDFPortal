@@ -161,35 +161,43 @@
 
     </main>
 
-    <!-- 6. Bottom Navigation Bar -->
+    <!-- 6. Bottom Navigation Bar (קצה שמאלי, אמצע, קצה ימני) -->
     <nav class="bottom-dock">
-      <div class="dock-items">
+      <!-- קצה שמאלי: Dashboard עם פס זוהר אמיתי וקבוע -->
+      <div class="dock-slot dock-slot-dashboard">
         <a href="#dashboard" class="dock-link active">
           <svg class="dock-icon-svg pulse-svg" viewBox="0 0 24 24">
             <polyline points="2,12 6,12 9,4 15,20 18,12 22,12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span class="dock-label">Dashboard</span>
         </a>
+        <div class="dashboard-glow-line"></div>
+      </div>
 
+      <!-- אמצע: Feed -->
+      <div class="dock-slot">
         <a href="#feed" class="dock-link">
           <svg class="dock-icon-svg" viewBox="0 0 24 24">
             <path d="M4.93 4.93A10 10 0 0 0 2 12a10 10 0 0 0 2.93 7.07M19.07 4.93A10 10 0 0 1 22 12a10 10 0 0 1-2.93 7.07M7.76 7.76A6 6 0 0 0 6 12a6 6 0 0 0 1.76 4.24M16.24 7.76A6 6 0 0 1 18 12a6 6 0 0 1-1.76 4.24M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <span class="dock-label">Feed</span>
         </a>
-
-        <a href="#intel" class="dock-link">
-          <svg class="dock-icon-svg" viewBox="0 0 24 24">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <span class="dock-label">Brief</span>
-        </a>
       </div>
 
-      <div class="dock-help">
+      <!-- קצה ימני: Brief + כפתור ? -->
+      <div class="dock-right-group">
+        <div class="dock-slot">
+          <a href="#intel" class="dock-link">
+            <svg class="dock-icon-svg" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <polyline points="10 9 9 9 8 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="dock-label">Brief</span>
+          </a>
+        </div>
         <button class="help-btn" type="button" title="Help">?</button>
       </div>
     </nav>
